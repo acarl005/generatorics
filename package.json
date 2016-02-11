@@ -1,19 +1,19 @@
 {
   "name": "generatorics",
   "version": "1.0.0",
-  "description": "",
+  "description": "Combinatorics library for JavaScript using generator functions.",
   "main": "generatorics.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.4.5"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "mocha"
   },
-  "author": "",
+  "author": "Andrew Carlson <acarl005@g.ucla.edu>",
   "license": "ISC"
 }
