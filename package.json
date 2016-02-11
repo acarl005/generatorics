@@ -1,0 +1,19 @@
+{
+  "name": "generatorics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generatorics.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
