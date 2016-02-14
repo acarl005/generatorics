@@ -4,13 +4,13 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.generatorics = factory();
+    root.C = factory();
   }
 }(this, function() {
 
 
-/** @exports generatorics */
-var generatorics = {
+/** @exports C */
+var C = {
 
   /**
    * Calculates a factorial
@@ -39,7 +39,7 @@ var generatorics = {
    * @param {Number} r - Number of elements to choose from the set.
    */
   C: function C(n, r) {
-    return this.factorial(n) / this.factorial(r) / this.factorial(n - r);
+    return this.P(n, r) / this.factorial(r);
   },
 
   /**
@@ -121,7 +121,7 @@ var generatorics = {
    * Creates a generator of all possible subsets of a set (a.k.a. power set).
    * @param {Array|String} arr - The set of elements.
    */
-  power: function* power(arr) {
+  powerSet: function* powerSet(arr) {
     var end = arr.length - 1;
     var data = [];
     yield* powerUtil(0, 0);
@@ -177,6 +177,6 @@ function swap(arr, i, j) {
 }
 
 
-return generatorics;
+return C;
 
 }));

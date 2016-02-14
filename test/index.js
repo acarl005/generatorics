@@ -252,7 +252,7 @@ describe('Base N', () => {
 });
 
 
-describe('Power', () => {
+describe('Power Set', () => {
 
   it('should calculate power set', () => {
     var members = [
@@ -266,7 +266,7 @@ describe('Power', () => {
       [1, 2, 3]
     ];
     var answers = [];
-    for (var sett of C.power([1, 2, 3])) {
+    for (var sett of C.powerSet([1, 2, 3])) {
       answers.push(sett.slice());
     }
     expect(answers).to.deep.have.members(members);
