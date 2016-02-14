@@ -100,7 +100,7 @@ var generatorics = {
   /**
    * Creates a generator of all possible "numbers" from the digits of a set.
    * @param {Array|String} arr - The set of digits.
-   * @param {Number} size - How many digits will be in the numbers.
+   * @param {Number} [size=arr.length] - How many digits will be in the numbers.
    */
   baseN: function* baseN(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
