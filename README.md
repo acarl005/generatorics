@@ -7,6 +7,8 @@
     * [.C(n, r)](#module_generatorics.C)
     * [.combinations(arr, [size])](#module_generatorics.combinations)
     * [.permutations(arr, [size])](#module_generatorics.permutations)
+    * [.baseN(arr, size)](#module_generatorics.baseN)
+    * [.power(arr)](#module_generatorics.power)
 
 <a name="module_generatorics.factorial"></a>
 ### generatorics.factorial(n)
@@ -61,4 +63,25 @@ Creates a generator of all permutations of a set.
 | --- | --- | --- | --- |
 | arr | <code>Array</code> &#124; <code>String</code> |  | The set of elements. |
 | [size] | <code>Number</code> | <code>arr.length</code> | Number of elements to choose from the set. |
+
+<a name="module_generatorics.baseN"></a>
+### generatorics.baseN(arr, size)
+Creates a generator of all possible "numbers" from the digits of a set.
+
+**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | <code>Array</code> &#124; <code>String</code> | The set of digits. |
+| size | <code>Number</code> | How many digits will be in the numbers. |
+
+<a name="module_generatorics.power"></a>
+### generatorics.power(arr)
+Creates a generator of all possible subsets of a set (a.k.a. power set).
+
+**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | <code>Array</code> &#124; <code>String</code> | The set of elements. |
 

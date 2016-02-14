@@ -97,6 +97,11 @@ var generatorics = {
     }
   },
 
+  /**
+   * Creates a generator of all possible "numbers" from the digits of a set.
+   * @param {Array|String} arr - The set of digits.
+   * @param {Number} size - How many digits will be in the numbers.
+   */
   baseN: function* baseN(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
     var data = [];
@@ -112,11 +117,29 @@ var generatorics = {
     }
   },
 
+  /**
+   * Creates a generator of all possible subsets of a set (a.k.a. power set).
+   * @param {Array|String} arr - The set of elements.
+   */
   power: function* power(arr) {
-    
+    var end = arr.length - 1;
+    var data = [];
+    yield* powerUtil(0, 0);
+    function* powerUtil(start, index) {
+      data.length = index;
+      yield data;
+      if (index === arr.length) {
+        return;
+      }
+      for (var i = start; i <= end; i++) {
+        data[index] = arr[i];
+        yield* powerUtil(i + 1, index + 1);
+      }
+    }
   }
 
 };
+
 
 
 /*

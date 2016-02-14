@@ -172,7 +172,7 @@ describe('Permutations', () => {
 
 });
 
-describe('BaseN', () => {
+describe('Base N', () => {
 
   it('should get number of 2 digits a set of 3', () => {
     var members = [
@@ -249,5 +249,27 @@ describe('BaseN', () => {
     expect(answers).to.deep.have.members(members);
   });
 
+});
+
+
+describe('Power', () => {
+
+  it('should calculate power set', () => {
+    var members = [
+      [],
+      [1],
+      [2],
+      [1, 2],
+      [3],
+      [1, 3],
+      [2, 3],
+      [1, 2, 3]
+    ];
+    var answers = [];
+    for (var sett of C.power([1, 2, 3])) {
+      answers.push(sett.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
 
 });
