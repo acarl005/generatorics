@@ -20,6 +20,9 @@ describe('Integer functions', () => {
 
   it('C(n,r) works', () => {
     expect(C.C(10, 3)).to.equal(120);
+    expect(C.C(10, 1)).to.equal(10);
+    expect(C.C(10, 0)).to.equal(1);
+    expect(C.C(10, 10)).to.equal(1);
   });
 });
 
@@ -166,5 +169,85 @@ describe('Permutations', () => {
     }
     expect(answers).to.deep.have.members(members);
   });
+
+});
+
+describe('BaseN', () => {
+
+  it('should get number of 2 digits a set of 3', () => {
+    var members = [
+      [ 1, 1 ],
+      [ 1, 2 ],
+      [ 1, 3 ],
+      [ 2, 1 ],
+      [ 2, 2 ],
+      [ 2, 3 ],
+      [ 3, 1 ],
+      [ 3, 2 ],
+      [ 3, 3 ],
+    ];
+    var answers = [];
+    for (var perm of C.baseN([1, 2, 3], 2)) {
+      answers.push(perm.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
+  it('should work with size 1', () => {
+    var members = [
+      [1],
+      [2],
+      [3]
+    ];
+    var answers = [];
+    for (var perm of C.baseN([1, 2, 3], 1)) {
+      answers.push(perm.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
+  it('should work with size 0', () => {
+    for (var perm of C.baseN([1, 2, 3], 0)) {
+      expect(perm).to.eql([]);
+    }
+  });
+
+  it('baseN should default to arr.length without size specified', () => {
+    var members = [
+      [ 1, 1, 1 ],
+      [ 1, 1, 2 ],
+      [ 1, 1, 3 ],
+      [ 1, 2, 1 ],
+      [ 1, 2, 2 ],
+      [ 1, 2, 3 ],
+      [ 1, 3, 1 ],
+      [ 1, 3, 2 ],
+      [ 1, 3, 3 ],
+      [ 2, 1, 1 ],
+      [ 2, 1, 2 ],
+      [ 2, 1, 3 ],
+      [ 2, 2, 1 ],
+      [ 2, 2, 2 ],
+      [ 2, 2, 3 ],
+      [ 2, 3, 1 ],
+      [ 2, 3, 2 ],
+      [ 2, 3, 3 ],
+      [ 3, 1, 1 ],
+      [ 3, 1, 2 ],
+      [ 3, 1, 3 ],
+      [ 3, 2, 1 ],
+      [ 3, 2, 2 ],
+      [ 3, 2, 3 ],
+      [ 3, 3, 1 ],
+      [ 3, 3, 2 ],
+      [ 3, 3, 3 ],
+    ];
+    var answers = [];
+    for (var perm of C.baseN([1, 2, 3])) {
+      answers.push(perm.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
 
 });
