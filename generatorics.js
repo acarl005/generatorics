@@ -4,13 +4,13 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.C = factory();
+    root.G = factory();
   }
 }(this, function() {
 
 
-/** @exports C */
-var C = {
+/** @exports G */
+var G = {
 
   /**
    * Calculates a factorial
@@ -53,11 +53,9 @@ var C = {
     var data = [];
     yield* combinationUtil(0, 0);
     function* combinationUtil(start, index) {
-      // Current combination is ready to be processed, yield the combination
-      if (index === size) {
+      if (index === size) { // Current combination is ready to be processed, yield the combination
         return yield data;
       }
-
       // replace index with all possible elements. The condition
       // "end - i + 1 >= size - index" makes sure that including one element
       // at index will make a combination with remaining elements
@@ -122,7 +120,6 @@ var C = {
    * @param {Array|String} arr - The set of elements.
    */
   powerSet: function* powerSet(arr) {
-    var end = arr.length - 1;
     var data = [];
     yield* powerUtil(0, 0);
     function* powerUtil(start, index) {
@@ -131,9 +128,24 @@ var C = {
       if (index === arr.length) {
         return;
       }
-      for (var i = start; i <= end; i++) {
+      for (var i = start; i < arr.length; i++) {
         data[index] = arr[i];
         yield* powerUtil(i + 1, index + 1);
+      }
+    }
+  },
+
+  cartesian: function* cartesian() {
+    var sets = arguments;
+    var data = [];
+    yield* cartesianUtil(0);
+    function* cartesianUtil(index) {
+      if (index === sets.length) {
+        return yield data;
+      }
+      for (var i = 0; i < sets[index].length; i++) {
+        data[index] = sets[index][i];
+        yield* cartesianUtil(index + 1);
       }
     }
   }
@@ -177,6 +189,6 @@ function swap(arr, i, j) {
 }
 
 
-return C;
+return G;
 
 }));
