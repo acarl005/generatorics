@@ -1,3 +1,13 @@
+/*
+ *  Licensed under the MIT license.
+ *  http://www.opensource.org/licenses/mit-license.php
+ *
+ *  References:
+ *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
+ *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
+ *    http://en.wikipedia.org/wiki/Factorial_number_system
+ */
+
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([], factory);
@@ -185,11 +195,11 @@ var G = {
 
   /**
    * Generates the cartesian product of the sets.
-   * @param {...Array|...String} arr - A set of elements.
+   * @param {...(Array|String)} sets - Variable number of sets of n elements.
    * @returns {Generator} yields each product as an array
    */
-  cartesian: function* cartesian(arr) {
-    var sets = arguments;
+  cartesian: function* cartesian(sets) {
+    sets = arguments;
     var data = [];
     yield* cartesianUtil(0);
     function* cartesianUtil(index) {

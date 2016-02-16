@@ -1,87 +1,127 @@
-<a name="module_generatorics"></a>
-## generatorics
+# Generatorics
 
-* [generatorics](#module_generatorics)
-    * [.factorial(n)](#module_generatorics.factorial)
-    * [.P(n, r)](#module_generatorics.P)
-    * [.C(n, r)](#module_generatorics.C)
-    * [.combinations(arr, [size])](#module_generatorics.combinations)
-    * [.permutations(arr, [size])](#module_generatorics.permutations)
-    * [.baseN(arr, [size])](#module_generatorics.baseN)
-    * [.power(arr)](#module_generatorics.power)
+### A combinatorics library for JavaScript utilizing ES2015 generators. Generate combinations, permutations, and power sets of arrays or strings.
 
-<a name="module_generatorics.factorial"></a>
-### generatorics.factorial(n)
-Calculates a factorial
+- Node
+```
+npm install generatorics
+```
+```javascript
+var G = require('generatorics')
+```
 
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+- Browser
+```
+bower install generatorics
+```
+```html
+<script src="file/path/to/generatorics.js"></script>
+```
 
-| Param | Type | Description |
-| --- | --- | --- |
-| n | <code>Number</code> | The number to operate the factorial on. |
 
-<a name="module_generatorics.P"></a>
-### generatorics.P(n, r)
-Calculates the number of possible permutations of "r" elements in a set of size "n".
+## Usage
 
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+### Power Set
+```javascript
+for (var subset of G.powerSet(['a', 'b', 'c'])) {
+  console.log(subset);
+}
+//  [ ]
+//  [ 'a' ]
+//  [ 'b' ]
+//  [ 'a', 'b' ]
+//  [ 'c' ]
+//  [ 'a', 'c' ]
+//  [ 'b', 'c' ]
+//  [ 'a', 'b', 'c' ]
+```
 
-| Param | Type | Description |
-| --- | --- | --- |
-| n | <code>Number</code> | Number of elements in the set. |
-| r | <code>Number</code> | Number of elements to choose from the set. |
+### permutation
+```javascript
+for (var perm of G.permutation(['a', 'b', 'c'], 2)) {
+  console.log(perm);
+}
+// [ 'a', 'b' ]
+// [ 'a', 'c' ]
+// [ 'b', 'a' ]
+// [ 'b', 'c' ]
+// [ 'c', 'a' ]
+// [ 'c', 'b' ]
 
-<a name="module_generatorics.C"></a>
-### generatorics.C(n, r)
-Calculates the number of possible combinations of "r" elements in a set of size "n".
+for (var perm of G.permutation(['a', 'b', 'c'])) { // assumes full length of array
+  console.log(perm);
+}
+// [ 'a', 'b', 'c' ]
+// [ 'a', 'c', 'b' ]
+// [ 'b', 'a', 'c' ]
+// [ 'b', 'c', 'a' ]
+// [ 'c', 'b', 'a' ]
+// [ 'c', 'a', 'b' ]
+```
 
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+### combination
+```javascript
+for (var comb of G.combination(['a', 'b', 'c'], 2)) {
+  console.log(comb);
+}
+// [ 'a', 'b' ]
+// [ 'a', 'c' ]
+// [ 'b', 'c' ]
+```
 
-| Param | Type | Description |
-| --- | --- | --- |
-| n | <code>Number</code> | Number of elements in the set. |
-| r | <code>Number</code> | Number of elements to choose from the set. |
+### permutation of combination
+```javascript
+for (var perm of G.permutationCombination(['a', 'b', 'c'])) {
+  console.log(perm);
+}
+// [ ]
+// [ 'a' ]
+// [ 'a', 'b' ]
+// [ 'a', 'b', 'c' ]
+// [ 'a', 'c' ]
+// [ 'a', 'c', 'b' ]
+// [ 'b' ]
+// [ 'b', 'a' ]
+// [ 'b', 'a', 'c' ]
+// [ 'b', 'c' ]
+// [ 'b', 'c', 'a' ]
+// [ 'c' ]
+// [ 'c', 'a' ]
+// [ 'c', 'a', 'b' ]
+// [ 'c', 'b' ]
+// [ 'c', 'b', 'a' ]
+```
 
-<a name="module_generatorics.combinations"></a>
-### generatorics.combinations(arr, [size])
-Creates a generator of all combinations of a set.
+### cartesian product
+```javascript
+for (var prod of G.cartesian([0, 1, 2], [0, 10, 20], [0, 100, 200])) {
+  console.log(prod);
+}
+// [ 0, 0, 0 ],  [ 0, 0, 100 ],  [ 0, 0, 200 ]
+// [ 0, 10, 0 ], [ 0, 10, 100 ], [ 0, 10, 200 ]
+// [ 0, 20, 0 ], [ 0, 20, 100 ], [ 0, 20, 200 ]
+// [ 1, 0, 0 ],  [ 1, 0, 100 ],  [ 1, 0, 200 ]
+// [ 1, 10, 0 ], [ 1, 10, 100 ], [ 1, 10, 200 ]
+// [ 1, 20, 0 ], [ 1, 20, 100 ], [ 1, 20, 200 ]
+// [ 2, 0, 0 ],  [ 2, 0, 100 ],  [ 2, 0, 200 ]
+// [ 2, 10, 0 ], [ 2, 10, 100 ], [ 2, 10, 200 ]
+// [ 2, 20, 0 ], [ 2, 20, 100 ], [ 2, 20, 200 ]
+```
 
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
+### base N
+```javascript
+for (var num of G.baseN(['a', 'b', 'c'])) {
+  console.log(num);
+}
+// [ 'a', 'a', 'a' ], [ 'a', 'a', 'b' ], [ 'a', 'a', 'c' ]
+// [ 'a', 'b', 'a' ], [ 'a', 'b', 'b' ], [ 'a', 'b', 'c' ]
+// [ 'a', 'c', 'a' ], [ 'a', 'c', 'b' ], [ 'a', 'c', 'c' ]
+// [ 'b', 'a', 'a' ], [ 'b', 'a', 'b' ], [ 'b', 'a', 'c' ]
+// [ 'b', 'b', 'a' ], [ 'b', 'b', 'b' ], [ 'b', 'b', 'c' ]
+// [ 'b', 'c', 'a' ], [ 'b', 'c', 'b' ], [ 'b', 'c', 'c' ]
+// [ 'c', 'a', 'a' ], [ 'c', 'a', 'b' ], [ 'c', 'a', 'c' ]
+// [ 'c', 'b', 'a' ], [ 'c', 'b', 'b' ], [ 'c', 'b', 'c' ]
+// [ 'c', 'c', 'a' ], [ 'c', 'c', 'b' ], [ 'c', 'c', 'c' ]
+```
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| arr | <code>Array</code> &#124; <code>String</code> |  | The set of elements. |
-| [size] | <code>Number</code> | <code>arr.length</code> | Number of elements to choose from the set. |
-
-<a name="module_generatorics.permutations"></a>
-### generatorics.permutations(arr, [size])
-Creates a generator of all permutations of a set.
-
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| arr | <code>Array</code> &#124; <code>String</code> |  | The set of elements. |
-| [size] | <code>Number</code> | <code>arr.length</code> | Number of elements to choose from the set. |
-
-<a name="module_generatorics.baseN"></a>
-### generatorics.baseN(arr, [size])
-Creates a generator of all possible "numbers" from the digits of a set.
-
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| arr | <code>Array</code> &#124; <code>String</code> |  | The set of digits. |
-| [size] | <code>Number</code> | <code>arr.length</code> | How many digits will be in the numbers. |
-
-<a name="module_generatorics.power"></a>
-### generatorics.power(arr)
-Creates a generator of all possible subsets of a set (a.k.a. power set).
-
-**Kind**: static method of <code>[generatorics](#module_generatorics)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| arr | <code>Array</code> &#124; <code>String</code> | The set of elements. |
-
+## Documentation
