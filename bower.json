@@ -1,0 +1,28 @@
+{
+  "name": "generatorics",
+  "description": "Combinatorics library for JavaScript using ES2015 generator functions. Generate power set, combination, and permutation.",
+  "main": "generatorics.js",
+  "authors": [
+    "Andrew Carlson <acarl005@g.ucla.edu>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "combinatorics",
+    "combination",
+    "permutation"
+  ],
+  "homepage": "https://github.com/acarl005/generatorics",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
