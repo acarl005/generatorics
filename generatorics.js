@@ -8,6 +8,7 @@
   }
 }(this, function() {
 
+'use strict';
 
 /** @exports G */
 var G = {
@@ -15,19 +16,35 @@ var G = {
   /**
    * Calculates a factorial
    * @param {Number} n - The number to operate the factorial on.
+   * @returns {Number} n!
    */
   factorial: function factorial(n) {
-    var ans = 1;
-    while(n) {
-      ans *= n--;
-    }
+    for (var ans = 1; n; ans *= n--);
     return ans;
+  },
+
+  /**
+   * Converts a number to the factorial number system. Digits are in least significant order.
+   * @param {Number} n - Integer in base 10
+   * @returns {Array} digits of n in factoradic in least significant order
+   */
+  factoradic: function factoradic(n) {
+    var f = 1;
+    for (var d = 1; f < n; f *= ++d);
+    if (f > n) f /= d--;
+    var result = [0];
+    for (; d; f /= d--) {
+      result[d] = Math.floor(n / f);
+      n %= f;
+    }
+    return result;
   },
 
   /**
    * Calculates the number of possible permutations of "r" elements in a set of size "n".
    * @param {Number} n - Number of elements in the set.
    * @param {Number} r - Number of elements to choose from the set.
+   * @returns {Number} n P r
    */
   P: function P(n, r) {
     return this.factorial(n) / this.factorial(n - r);
@@ -37,15 +54,17 @@ var G = {
    * Calculates the number of possible combinations of "r" elements in a set of size "n".
    * @param {Number} n - Number of elements in the set.
    * @param {Number} r - Number of elements to choose from the set.
+   * @returns {Number} n C r
    */
   C: function C(n, r) {
     return this.P(n, r) / this.factorial(r);
   },
 
   /**
-   * Creates a generator of all combinations of a set.
+   * Generates all combinations of a set.
    * @param {Array|String} arr - The set of elements.
    * @param {Number} [size=arr.length] - Number of elements to choose from the set.
+   * @returns {Generator} yields each combination as an array
    */
   combination: function* combination(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
@@ -68,9 +87,10 @@ var G = {
   },
 
   /**
-   * Creates a generator of all permutations of a set.
+   * Generates all permutations of a set.
    * @param {Array|String} arr - The set of elements.
    * @param {Number} [size=arr.length] - Number of elements to choose from the set.
+   * @returns {Generator} yields each permutation as an array
    */
   permutation: function* permutation(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
@@ -96,8 +116,9 @@ var G = {
   },
 
   /**
-  * Creates a generator of all possible subsets of a set (a.k.a. power set).
+  * Generates all possible subsets of a set (a.k.a. power set).
   * @param {Array|String} arr - The set of elements.
+  * @returns {Generator} yields each subset as an array
   */
   powerSet: function* powerSet(arr) {
     var data = [];
@@ -115,6 +136,11 @@ var G = {
     }
   },
 
+  /**
+   * Generates the permutation of the combinations of a set.
+   * @param {Array|String} arr - The set of elements.
+   * @returns {Generator} yields each permutation as an array
+   */
   permutationCombination: function* permutationCombination(arr) {
     var data = [];
     var indecesUsed = [];
@@ -137,9 +163,10 @@ var G = {
   },
 
   /**
-   * Creates a generator of all possible "numbers" from the digits of a set.
+   * Generates all possible "numbers" from the digits of a set.
    * @param {Array|String} arr - The set of digits.
    * @param {Number} [size=arr.length] - How many digits will be in the numbers.
+   * @returns {Generator} yields all digits as an array
    */
   baseN: function* baseN(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
@@ -156,7 +183,12 @@ var G = {
     }
   },
 
-  cartesian: function* cartesian() {
+  /**
+   * Generates the cartesian product of the sets.
+   * @param {...Array|...String} arr - A set of elements.
+   * @returns {Generator} yields each product as an array
+   */
+  cartesian: function* cartesian(arr) {
     var sets = arguments;
     var data = [];
     yield* cartesianUtil(0);
@@ -173,9 +205,6 @@ var G = {
 
 };
 
-for (var perm of G.permutationCombination('abc')) {
-  console.log(perm);
-}
 
 /*
  * More efficient alorithm for permutations of All elements in an array. Doesn't
@@ -198,8 +227,8 @@ function* heapsAlg(arr) {
 }
 
 /*
-* Swaps two array elements.
-*/
+ * Swaps two array elements.
+ */
 function swap(arr, i, j) {
   var len = arr.length;
   if (i >= len || j >= len) {

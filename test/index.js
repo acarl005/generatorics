@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var G = require('../generatorics');
 
-describe('Integer functions', () => {
+describe('Arithmetic functions', () => {
   it('factorial works', () => {
     expect(G.factorial(0)).to.equal(1);
     expect(G.factorial(1)).to.equal(1);
@@ -9,6 +9,17 @@ describe('Integer functions', () => {
     expect(G.factorial(3)).to.equal(6);
     expect(G.factorial(4)).to.equal(24);
     expect(G.factorial(5)).to.equal(120);
+  });
+
+  it('factoradic works', () => {
+    expect(G.factoradic(0)).to.eql([ 0 ]);
+    expect(G.factoradic(1)).to.eql([ 0, 1 ]);
+    expect(G.factoradic(2)).to.eql([ 0, 0, 1 ]);
+    expect(G.factoradic(3)).to.eql([ 0, 1, 1 ]);
+    expect(G.factoradic(100)).to.eql([ 0, 0, 2, 0, 4 ]);
+    expect(G.factoradic(1337)).to.eql([ 0, 1, 2, 2, 0, 5, 1 ]);
+    expect(G.factoradic(9001)).to.eql([ 0, 1, 0, 0, 0, 3, 5, 1 ]);
+    expect(G.factoradic(3958174309503149571029856012)).to.eql([ 0, 1, 0, 2, 2, 3, 5, 5, 2, 2, 3, 7, 6, 1, 12, 14, 11, 12, 18, 0, 10, 2, 21, 12, 4, 21, 9 ]);
   });
 
   it('P(n,r) works', () => {
@@ -320,6 +331,43 @@ describe('Cartesian Product', () => {
     ];
     var answers = [];
     for (var sett of G.cartesian([0, 1, 2], [0, 10, 20], [0, 100, 200])) {
+      answers.push(sett.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
+  it('should work with apply', () => {
+    var members = [
+      [0, 0, 0],   [1, 0, 0],   [2, 0, 0],
+      [0, 10, 0],  [1, 10, 0],  [2, 10, 0],
+      [0, 20, 0],  [1, 20, 0],  [2, 20, 0],
+      [0, 0, 100], [1, 0, 100], [2, 0, 100],
+      [0, 10, 100],[1, 10, 100],[2, 10, 100],
+      [0, 20, 100],[1, 20, 100],[2, 20, 100],
+      [0, 0, 200], [1, 0, 200], [2, 0, 200],
+      [0, 10, 200],[1, 10, 200],[2, 10, 200],
+      [0, 20, 200],[1, 20, 200],[2, 20, 200]
+    ];
+    var answers = [];
+    for (var sett of G.cartesian.apply(G, [[0, 1, 2], [0, 10, 20], [0, 100, 200]])) {
+      answers.push(sett.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
+  it('should work with apply', () => {
+    var members = [
+      [ 'a', 'c', 'e' ],
+      [ 'a', 'c', 'f' ],
+      [ 'a', 'd', 'e' ],
+      [ 'a', 'd', 'f' ],
+      [ 'b', 'c', 'e' ],
+      [ 'b', 'c', 'f' ],
+      [ 'b', 'd', 'e' ],
+      [ 'b', 'd', 'f' ]
+    ];
+    var answers = [];
+    for (var sett of G.cartesian('ab', 'cd', 'ef')) {
       answers.push(sett.slice());
     }
     expect(answers).to.deep.have.members(members);
