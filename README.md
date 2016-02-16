@@ -7,7 +7,7 @@
 npm install generatorics
 ```
 ```javascript
-var G = require('generatorics')
+var G = require('generatorics');
 ```
 
 - Browser
@@ -125,3 +125,6 @@ for (var num of G.baseN(['a', 'b', 'c'])) {
 ```
 
 ## Documentation
+
+
+jsdpairjvraiojgpoaeirjgoefjg
