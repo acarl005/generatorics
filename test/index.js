@@ -29,12 +29,12 @@ describe('Integer functions', () => {
 describe('Combinations', () => {
   it('should get combinations of two from set of 3', () => {
     var members = [
-      [1, 2],
-      [1, 3],
-      [2, 3]
+      [ 1, 2 ],
+      [ 1, 3 ],
+      [ 2, 3 ]
     ];
     var answers = [];
-    for (var comb of G.combinations([1, 2, 3], 2)) {
+    for (var comb of G.combination([1, 2, 3], 2)) {
       answers.push(comb.slice());
     }
     expect(answers).to.deep.have.members(members);
@@ -42,31 +42,31 @@ describe('Combinations', () => {
 
   it('should work with size 1', () => {
     var members = [
-      [1],
-      [2],
-      [3]
+      [ 1 ],
+      [ 2 ],
+      [ 3 ]
     ];
     var answers = [];
-    for (var comb of G.combinations([1, 2, 3], 1)) {
+    for (var comb of G.combination([1, 2, 3], 1)) {
       answers.push(comb.slice());
     }
     expect(answers).to.deep.have.members(members);
   });
 
   it('should work with size 0', () => {
-    for (var comb of G.combinations([1, 2, 3], 0)) {
+    for (var comb of G.combination([1, 2, 3], 0)) {
       expect(comb).to.eql([]);
     }
   });
 
   it('should yield nothing if size is greater than array length', () => {
-    for (var comb of G.combinations([1, 2, 3], 4)) {
+    for (var comb of G.combination([1, 2, 3], 4)) {
       throw new Error('Made a combination when it should not have');
     }
   });
 
   it('combinations should default to arr.length without size specified', () => {
-    for (var comb of G.combinations([1, 2, 3])) {
+    for (var comb of G.combination([1, 2, 3])) {
       expect(comb).to.eql([1, 2, 3]);
     }
   });
@@ -81,7 +81,7 @@ describe('Combinations', () => {
       [ 'c', 'd' ],
     ];
     var answers = [];
-    for (var comb of G.combinations('abcd', 2)) {
+    for (var comb of G.combination('abcd', 2)) {
       answers.push(comb.slice());
     }
     expect(answers).to.deep.have.members(members);
@@ -93,15 +93,15 @@ describe('Permutations', () => {
 
   it('should get permutations of 2 from a set of 3', () => {
     var members = [
-      [1, 2],
-      [1, 3],
-      [2, 1],
-      [2, 3],
-      [3, 1],
-      [3, 2]
+      [ 1, 2 ],
+      [ 1, 3 ],
+      [ 2, 1 ],
+      [ 2, 3 ],
+      [ 3, 1 ],
+      [ 3, 2 ]
     ];
     var answers = [];
-    for (var perm of G.permutations([1, 2, 3], 2)) {
+    for (var perm of G.permutation([1, 2, 3], 2)) {
       answers.push(perm.slice());
     }
     expect(answers).to.deep.have.members(members);
@@ -109,25 +109,25 @@ describe('Permutations', () => {
 
   it('should work with size 1', () => {
     var members = [
-      [1],
-      [2],
-      [3]
+      [ 1 ],
+      [ 2 ],
+      [ 3 ]
     ];
     var answers = [];
-    for (var perm of G.permutations([1, 2, 3], 1)) {
+    for (var perm of G.permutation([1, 2, 3], 1)) {
       answers.push(perm.slice());
     }
     expect(answers).to.deep.have.members(members);
   });
 
   it('should work with size 0', () => {
-    for (var perm of G.permutations([1, 2, 3], 0)) {
+    for (var perm of G.permutation([1, 2, 3], 0)) {
       expect(perm).to.eql([]);
     }
   });
 
   it('should yield nothing if size is greater than array length', () => {
-    for (var perm of G.permutations([1, 2, 3], 4)) {
+    for (var perm of G.permutation([1, 2, 3], 4)) {
       throw new Error('Made a permutation when it should not have');
     }
   });
@@ -142,7 +142,7 @@ describe('Permutations', () => {
       [ 3, 1, 2 ],
     ];
     var answers = [];
-    for (var perm of G.permutations([1, 2, 3])) {
+    for (var perm of G.permutation([1, 2, 3])) {
       answers.push(perm.slice());
     }
     expect(answers).to.deep.have.members(members);
@@ -164,7 +164,7 @@ describe('Permutations', () => {
       [ 'd', 'c' ],
     ];
     var answers = [];
-    for (var perm of G.permutations('abcd', 2)) {
+    for (var perm of G.permutation('abcd', 2)) {
       answers.push(perm.slice());
     }
     expect(answers).to.deep.have.members(members);
@@ -195,9 +195,9 @@ describe('Base N', () => {
 
   it('should work with size 1', () => {
     var members = [
-      [1],
-      [2],
-      [3]
+      [ 1 ],
+      [ 2 ],
+      [ 3 ]
     ];
     var answers = [];
     for (var perm of G.baseN([1, 2, 3], 1)) {
@@ -256,18 +256,48 @@ describe('Power Set', () => {
 
   it('should calculate power set', () => {
     var members = [
-      [],
-      [1],
-      [2],
-      [1, 2],
-      [3],
-      [1, 3],
-      [2, 3],
-      [1, 2, 3]
+      [  ],
+      [ 1 ],
+      [ 2 ],
+      [ 1, 2 ],
+      [ 3 ],
+      [ 1, 3 ],
+      [ 2, 3 ],
+      [ 1, 2, 3 ]
     ];
     var answers = [];
     for (var sett of G.powerSet([1, 2, 3])) {
       answers.push(sett.slice());
+    }
+    expect(answers).to.deep.have.members(members);
+  });
+
+});
+
+describe('Permutation Combination', () => {
+
+  it('should get the permutation of combinations', () => {
+    var members = [
+      [ ],
+      [ 'a' ],
+      [ 'b' ],
+      [ 'c' ],
+      [ 'a', 'b' ],
+      [ 'b', 'a' ],
+      [ 'a', 'c' ],
+      [ 'c', 'a' ],
+      [ 'b', 'c' ],
+      [ 'c', 'b' ],
+      [ 'a', 'b', 'c' ],
+      [ 'a', 'c', 'b' ],
+      [ 'b', 'a', 'c' ],
+      [ 'b', 'c', 'a' ],
+      [ 'c', 'a', 'b' ],
+      [ 'c', 'b', 'a' ]
+    ];
+    var answers = [];
+    for (var comb of G.permutationCombination(['a', 'b', 'c'])) {
+      answers.push(comb.slice());
     }
     expect(answers).to.deep.have.members(members);
   });

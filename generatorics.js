@@ -47,7 +47,7 @@ var G = {
    * @param {Array|String} arr - The set of elements.
    * @param {Number} [size=arr.length] - Number of elements to choose from the set.
    */
-  combinations: function* combinations(arr, size) {
+  combination: function* combination(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
     var end = arr.length - 1;
     var data = [];
@@ -72,7 +72,7 @@ var G = {
    * @param {Array|String} arr - The set of elements.
    * @param {Number} [size=arr.length] - Number of elements to choose from the set.
    */
-  permutations: function* permutations(arr, size) {
+  permutation: function* permutation(arr, size) {
     size = typeof size === 'undefined' ? arr.length : size;
     if (size === arr.length) {
       return yield* heapsAlg(arr);
@@ -83,6 +83,47 @@ var G = {
     function* permutationUtil(index) {
       if (index === size) {
         return yield data;
+      }
+      for (var i = 0; i < arr.length; i++) {
+        if (!indecesUsed[i]) {
+          indecesUsed[i] = true;
+          data[index] = arr[i];
+          yield *permutationUtil(index + 1);
+          indecesUsed[i] = false;
+        }
+      }
+    }
+  },
+
+  /**
+  * Creates a generator of all possible subsets of a set (a.k.a. power set).
+  * @param {Array|String} arr - The set of elements.
+  */
+  powerSet: function* powerSet(arr) {
+    var data = [];
+    yield* powerUtil(0, 0);
+    function* powerUtil(start, index) {
+      data.length = index;
+      yield data;
+      if (index === arr.length) {
+        return;
+      }
+      for (var i = start; i < arr.length; i++) {
+        data[index] = arr[i];
+        yield* powerUtil(i + 1, index + 1);
+      }
+    }
+  },
+
+  permutationCombination: function* permutationCombination(arr) {
+    var data = [];
+    var indecesUsed = [];
+    yield* permutationUtil(0);
+    function* permutationUtil(index) {
+      data.length = index;
+      yield data;
+      if (index === arr.length) {
+        return;
       }
       for (var i = 0; i < arr.length; i++) {
         if (!indecesUsed[i]) {
@@ -115,26 +156,6 @@ var G = {
     }
   },
 
-  /**
-   * Creates a generator of all possible subsets of a set (a.k.a. power set).
-   * @param {Array|String} arr - The set of elements.
-   */
-  powerSet: function* powerSet(arr) {
-    var data = [];
-    yield* powerUtil(0, 0);
-    function* powerUtil(start, index) {
-      data.length = index;
-      yield data;
-      if (index === arr.length) {
-        return;
-      }
-      for (var i = start; i < arr.length; i++) {
-        data[index] = arr[i];
-        yield* powerUtil(i + 1, index + 1);
-      }
-    }
-  },
-
   cartesian: function* cartesian() {
     var sets = arguments;
     var data = [];
@@ -152,7 +173,9 @@ var G = {
 
 };
 
-
+for (var perm of G.permutationCombination('abc')) {
+  console.log(perm);
+}
 
 /*
  * More efficient alorithm for permutations of All elements in an array. Doesn't
