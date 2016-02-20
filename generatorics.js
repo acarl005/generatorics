@@ -5,7 +5,6 @@
  *  References:
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
- *    http://en.wikipedia.org/wiki/Factorial_number_system
  */
 
 (function(root, factory) {
@@ -39,13 +38,13 @@ var G = {
    * @returns {Array} digits of n in factoradic in least significant order
    */
   factoradic: function factoradic(n) {
-    var f = 1;
-    for (var d = 1; f < n; f *= ++d);
-    if (f > n) f /= d--;
+    var radix = 1;
+    for (var digit = 1; radix < n; radix *= ++digit);
+    if (radix > n) radix /= digit--;
     var result = [0];
-    for (; d; f /= d--) {
-      result[d] = Math.floor(n / f);
-      n %= f;
+    for (; digit; radix /= digit--) {
+      result[digit] = Math.floor(n / radix);
+      n %= radix;
     }
     return result;
   },

@@ -26,14 +26,14 @@ bower install generatorics
 for (var subset of G.powerSet(['a', 'b', 'c'])) {
   console.log(subset);
 }
-//  [ ]
-//  [ 'a' ]
-//  [ 'b' ]
-//  [ 'a', 'b' ]
-//  [ 'c' ]
-//  [ 'a', 'c' ]
-//  [ 'b', 'c' ]
-//  [ 'a', 'b', 'c' ]
+// [ ]
+// [ 'a' ]
+// [ 'a', 'b' ]
+// [ 'a', 'b', 'c' ]
+// [ 'a', 'c' ]
+// [ 'b' ]
+// [ 'b', 'c' ]
+// [ 'c' ]
 ```
 
 ### permutation
@@ -67,6 +67,26 @@ for (var comb of G.combination(['a', 'b', 'c'], 2)) {
 // [ 'a', 'b' ]
 // [ 'a', 'c' ]
 // [ 'b', 'c' ]
+```
+
+For efficiency, each array being yielded is the same one being mutated on each iteration.
+```javascript
+var combs = [];
+for (var comb of G.combination(['a', 'b', 'c'], 2)) {
+  combs.push(comb);
+}
+console.log(combs);
+// [ [ 'b', 'c' ], [ 'b', 'c' ], [ 'b', 'c' ] ]
+```
+
+You can clone if necessary.
+```javascript
+var combs = [];
+for (var comb of G.combination(['a', 'b', 'c'], 2)) {
+  combs.push(comb.slice()); // slice with no args is an idiomatic way to clone an array
+}
+console.log(combs);
+// [ [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'c' ] ]
 ```
 
 ### permutation of combination
