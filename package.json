@@ -1,6 +1,6 @@
 {
   "name": "generatorics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Combinatorics library for JavaScript using ES2015 generator functions. Generate power set, combination, and permutation.",
   "main": "generatorics.js",
   "directories": {
@@ -16,10 +16,17 @@
     "test": "mocha"
   },
   "author": "Andrew Carlson <acarl005@g.ucla.edu>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acarl005/generatorics.git"
+  },
+  "homepage": "https://github.com/acarl005/generatorics#readme",
   "license": "MIT",
   "keywords": [
     "combinatorics",
     "combination",
-    "permutation"
+    "permutation",
+    "powerset",
+    "factoradic"
   ]
 }
