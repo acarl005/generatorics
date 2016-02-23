@@ -1,5 +1,6 @@
 {
   "name": "generatorics",
+  "version": "1.0.2",
   "description": "Combinatorics library for JavaScript using ES2015 generator functions. Generate power set, combination, and permutation.",
   "main": "generatorics.js",
   "authors": [
