@@ -48,6 +48,7 @@ describe('Combinations', () => {
     for (var comb of G.combination([1, 2, 3], 2)) {
       answers.push(comb.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -61,6 +62,7 @@ describe('Combinations', () => {
     for (var comb of G.combination([1, 2, 3], 1)) {
       answers.push(comb.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -95,7 +97,13 @@ describe('Combinations', () => {
     for (var comb of G.combination('abcd', 2)) {
       answers.push(comb.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('yields the same array each time', () => {
+    var arr = [...G.combination([1, 2, 3], 2)];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
   });
 
 });
@@ -115,6 +123,7 @@ describe('Permutations', () => {
     for (var perm of G.permutation([1, 2, 3], 2)) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -128,6 +137,7 @@ describe('Permutations', () => {
     for (var perm of G.permutation([1, 2, 3], 1)) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -156,6 +166,7 @@ describe('Permutations', () => {
     for (var perm of G.permutation([1, 2, 3])) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -178,7 +189,13 @@ describe('Permutations', () => {
     for (var perm of G.permutation('abcd', 2)) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('yields the same array each time', () => {
+    var arr = [...G.permutation([1, 2, 3], 2)];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
   });
 
 });
@@ -201,6 +218,7 @@ describe('Base N', () => {
     for (var perm of G.baseN([1, 2, 3], 2)) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -214,6 +232,7 @@ describe('Base N', () => {
     for (var perm of G.baseN([1, 2, 3], 1)) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -257,7 +276,13 @@ describe('Base N', () => {
     for (var perm of G.baseN([1, 2, 3])) {
       answers.push(perm.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('yields the same array each time', () => {
+    var arr = [...G.baseN([1, 2, 3])];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
   });
 
 });
@@ -280,7 +305,13 @@ describe('Power Set', () => {
     for (var sett of G.powerSet([1, 2, 3])) {
       answers.push(sett.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('yields the same array each time', () => {
+    var arr = [...G.powerSet([1, 2, 3])];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
   });
 
 });
@@ -310,7 +341,13 @@ describe('Permutation Combination', () => {
     for (var comb of G.permutationCombination(['a', 'b', 'c'])) {
       answers.push(comb.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('should yield the same array each time', () => {
+    var arr = [...G.permutationCombination([1, 2, 3])];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
   });
 
 });
@@ -333,6 +370,7 @@ describe('Cartesian Product', () => {
     for (var sett of G.cartesian([0, 1, 2], [0, 10, 20], [0, 100, 200])) {
       answers.push(sett.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
@@ -352,10 +390,11 @@ describe('Cartesian Product', () => {
     for (var sett of G.cartesian.apply(G, [[0, 1, 2], [0, 10, 20], [0, 100, 200]])) {
       answers.push(sett.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
   });
 
-  it('should work with apply', () => {
+  it('should work with strings', () => {
     var members = [
       [ 'a', 'c', 'e' ],
       [ 'a', 'c', 'f' ],
@@ -370,7 +409,66 @@ describe('Cartesian Product', () => {
     for (var sett of G.cartesian('ab', 'cd', 'ef')) {
       answers.push(sett.slice());
     }
+    expect(answers).to.have.length(members.length);
     expect(answers).to.deep.have.members(members);
+  });
+
+  it('should yield same array each time', () => {
+    var arr = [...G.cartesian('12', '34', '56')];
+    expect(arr).to.eql(Array(arr.length).fill(arr[0]));
+  });
+
+});
+
+
+describe('Clone submodule', () => {
+
+  it('clones combinations', () => {
+    var answers = [];
+    for (var comb of G.combination([1, 2, 3], 2)) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.combination([1, 2, 3], 2)]);
+  });
+
+  it('clones permutations', () => {
+    var answers = [];
+    for (var comb of G.permutation([1, 2, 3], 2)) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.permutation([1, 2, 3], 2)]);
+  });
+
+  it('clones power sets', () => {
+    var answers = [];
+    for (var comb of G.powerSet([1, 2, 3])) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.powerSet([1, 2, 3])]);
+  });
+
+  it('clones permutations of combinations', () => {
+    var answers = [];
+    for (var comb of G.permutationCombination([1, 2, 3])) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.permutationCombination([1, 2, 3])]);
+  });
+
+  it('clones base N', () => {
+    var answers = [];
+    for (var comb of G.baseN([1, 2, 3])) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.baseN([1, 2, 3])]);
+  });
+
+  it('clones cartesian products', () => {
+    var answers = [];
+    for (var comb of G.cartesian([1, 2, 3], [5, 6], [1, 8])) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.cartesian([1, 2, 3], [5, 6], [1, 8])]);
   });
 
 });

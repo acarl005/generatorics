@@ -21,7 +21,7 @@ bower install generatorics
 
 ## Usage
 
-### Power Set
+### power set
 ```javascript
 for (var subset of G.powerSet(['a', 'b', 'c'])) {
   console.log(subset);
@@ -78,16 +78,7 @@ for (var comb of G.combination(['a', 'b', 'c'], 2)) {
 console.log(combs);
 // [ [ 'b', 'c' ], [ 'b', 'c' ], [ 'b', 'c' ] ]
 ```
-
-You can clone if necessary.
-```javascript
-var combs = [];
-for (var comb of G.combination(['a', 'b', 'c'], 2)) {
-  combs.push(comb.slice()); // slice with no args is an idiomatic way to clone an array
-}
-console.log(combs);
-// [ [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'c' ] ]
-```
+You can clone if necessary, or use the [clone submodule](#clone-submodule)
 
 ### permutation of combination
 ```javascript
@@ -142,6 +133,47 @@ for (var num of G.baseN(['a', 'b', 'c'])) {
 // [ 'c', 'a', 'a' ], [ 'c', 'a', 'b' ], [ 'c', 'a', 'c' ]
 // [ 'c', 'b', 'a' ], [ 'c', 'b', 'b' ], [ 'c', 'b', 'c' ]
 // [ 'c', 'c', 'a' ], [ 'c', 'c', 'b' ], [ 'c', 'c', 'c' ]
+```
+
+## Clone Submodule
+Each array yielded from the generator is actually the same array in memory, just mutated to have different elements. This is to avoid the unnecessary creation of a bunch of arrays, which consume memory. As a result, you get a strange result when trying to generate an array.
+```javascript
+var combs = [];
+for (var comb of G.combination(['a', 'b', 'c'], 2)) {
+  combs.push(comb);
+}
+console.log(combs);
+// [ [ 'b', 'c' ], [ 'b', 'c' ], [ 'b', 'c' ] ]
+```
+Instead, you can use the clone submodule.
+```javascript
+var combs = [];
+for (var comb of G.clone.combination(['a', 'b', 'c'], 2)) {
+  combs.push(comb);
+}
+console.log(combs);
+// [ [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'c' ] ]
+```
+This submodule provides the [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), and [cartesian](#module_G.cartesian) methods as well.
+
+## Cool things to do with ES2015 generators
+```javascript
+var combs = G.clone.combination([1, 2, 3], 2);
+
+// "for-of" loop
+for (var comb of combs) {
+  console.log(comb);
+}
+
+// generate arrays
+Array.from(combs);
+[...combs];
+
+// generate sets
+new Set(combs);
+
+// function calls
+console.log(...combs);
 ```
 
 ## Documentation

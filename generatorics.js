@@ -76,13 +76,14 @@ var G = {
    * @returns {Generator} yields each combination as an array
    */
   combination: function* combination(arr, size) {
+    var that = this;
     size = typeof size === 'undefined' ? arr.length : size;
     var end = arr.length - 1;
     var data = [];
     yield* combinationUtil(0, 0);
     function* combinationUtil(start, index) {
       if (index === size) { // Current combination is ready to be processed, yield the combination
-        return yield data;
+        return yield that === clone ? data.slice() : data;
       }
       // replace index with all possible elements. The condition
       // "end - i + 1 >= size - index" makes sure that including one element
@@ -102,6 +103,7 @@ var G = {
    * @returns {Generator} yields each permutation as an array
    */
   permutation: function* permutation(arr, size) {
+    var that = this;
     size = typeof size === 'undefined' ? arr.length : size;
     if (size === arr.length) {
       return yield* heapsAlg(arr);
@@ -111,7 +113,7 @@ var G = {
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       if (index === size) {
-        return yield data;
+        return yield that === clone ? data.slice() : data;
       }
       for (var i = 0; i < arr.length; i++) {
         if (!indecesUsed[i]) {
@@ -130,11 +132,12 @@ var G = {
   * @returns {Generator} yields each subset as an array
   */
   powerSet: function* powerSet(arr) {
+    var that = this;
     var data = [];
     yield* powerUtil(0, 0);
     function* powerUtil(start, index) {
       data.length = index;
-      yield data;
+      yield that === clone ? data.slice() : data;
       if (index === arr.length) {
         return;
       }
@@ -151,12 +154,13 @@ var G = {
    * @returns {Generator} yields each permutation as an array
    */
   permutationCombination: function* permutationCombination(arr) {
+    var that = this;
     var data = [];
     var indecesUsed = [];
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       data.length = index;
-      yield data;
+      yield that === clone ? data.slice() : data;
       if (index === arr.length) {
         return;
       }
@@ -178,12 +182,13 @@ var G = {
    * @returns {Generator} yields all digits as an array
    */
   baseN: function* baseN(arr, size) {
+    var that = this;
     size = typeof size === 'undefined' ? arr.length : size;
     var data = [];
     yield* baseNUtil(0);
     function* baseNUtil(index) {
       if (index === size) {
-        return yield data;
+        return yield that === clone ? data.slice() : data;
       }
       for (var i = 0; i < arr.length; i++) {
         data[index] = arr[i];
@@ -198,12 +203,13 @@ var G = {
    * @returns {Generator} yields each product as an array
    */
   cartesian: function* cartesian(sets) {
+    var that = this;
     sets = arguments;
     var data = [];
     yield* cartesianUtil(0);
     function* cartesianUtil(index) {
       if (index === sets.length) {
-        return yield data;
+        return yield that === clone ? data.slice() : data;
       }
       for (var i = 0; i < sets[index].length; i++) {
         data[index] = sets[index][i];
@@ -213,6 +219,16 @@ var G = {
   }
 
 };
+
+var clone = {};
+clone.combination = G.combination;
+clone.permutation = G.permutation;
+clone.powerSet = G.powerSet;
+clone.permutationCombination = G.permutationCombination;
+clone.baseN = G.baseN;
+clone.cartesian = G.cartesian;
+
+G.clone = clone;
 
 
 /*
