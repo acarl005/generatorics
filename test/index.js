@@ -437,6 +437,12 @@ describe('Clone submodule', () => {
       answers.push(comb.slice());
     }
     expect(answers).to.eql([...G.clone.permutation([1, 2, 3], 2)]);
+
+    answers = [];
+    for (var comb of G.permutation([1, 2, 3])) {
+      answers.push(comb.slice());
+    }
+    expect(answers).to.eql([...G.clone.permutation([1, 2, 3])]);
   });
 
   it('clones power sets', () => {

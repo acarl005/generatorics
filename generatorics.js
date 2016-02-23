@@ -106,7 +106,7 @@ var G = {
     var that = this;
     size = typeof size === 'undefined' ? arr.length : size;
     if (size === arr.length) {
-      return yield* heapsAlg(arr);
+      return yield* heapsAlg(arr, that === clone);
     }
     var data = [];
     var indecesUsed = [];
@@ -235,12 +235,12 @@ G.clone = clone;
  * More efficient alorithm for permutations of All elements in an array. Doesn't
  * work for "sub-permutations", e.g. permutations of 3 elements from [1, 2, 3, 4, 5]
  */
-function* heapsAlg(arr) {
+function* heapsAlg(arr, clone) {
   var size = arr.length;
   yield* heapsUtil(0);
   function* heapsUtil(index) {
     if (index === size) {
-      return yield arr;
+      return yield clone ? arr.slice() : arr;
     }
 
     for (var j = index; j < size; j++) {

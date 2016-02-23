@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>sup</title>
+  <script type="text/javascript" src="generatorics.js"></script>
+</head>
+<body>
+
+  <script type="text/javascript">
+    for (var perm of G.clone.permutation([1, 2, 3], 2)) {
+      perm.push(6)
+      console.log(perm)
+    }
+    var perms = G.clone.permutation([1, 2, 3], 2);
+    var set = new Set(perms);
+    console.log(set);
+  </script>
+
+</body>
+</html>
