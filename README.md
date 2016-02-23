@@ -138,22 +138,18 @@ for (var num of G.baseN(['a', 'b', 'c'])) {
 ## Clone Submodule
 Each array yielded from the generator is actually the same array in memory, just mutated to have different elements. This is to avoid the unnecessary creation of a bunch of arrays, which consume memory. As a result, you get a strange result when trying to generate an array.
 ```javascript
-var combs = [];
-for (var comb of G.combination(['a', 'b', 'c'], 2)) {
-  combs.push(comb);
-}
-console.log(combs);
+var combs = G.combination(['a', 'b', 'c'], 2);
+console.log([...combs]);
 // [ [ 'b', 'c' ], [ 'b', 'c' ], [ 'b', 'c' ] ]
 ```
 Instead, you can use the clone submodule.
 ```javascript
-var combs = [];
-for (var comb of G.clone.combination(['a', 'b', 'c'], 2)) {
-  combs.push(comb);
-}
-console.log(combs);
+var combs = G.clone.combination(['a', 'b', 'c'], 2);
+console.log([...combs]);
 // [ [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'c' ] ]
 ```
+
+### G.clone
 This submodule provides the [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), and [cartesian](#module_G.cartesian) methods as well.
 
 ## Cool things to do with ES2015 generators
@@ -161,7 +157,7 @@ This submodule provides the [combination](#module_G.combination), [permutation](
 var combs = G.clone.combination([1, 2, 3], 2);
 
 // "for-of" loop
-for (var comb of combs) {
+for (let comb of combs) {
   console.log(comb);
 }
 
