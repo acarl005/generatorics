@@ -193,6 +193,23 @@ describe('Permutations', () => {
     expect(answers).to.deep.have.members(members);
   });
 
+  it('should work with string without specifying length', () => {
+    var members = [
+      [ 'a', 'b', 'c' ],
+      [ 'a', 'c', 'b' ],
+      [ 'b', 'a', 'c' ],
+      [ 'b', 'c', 'a' ],
+      [ 'c', 'b', 'a' ],
+      [ 'c', 'a', 'b' ]
+    ];
+    var answers = [];
+    for (var perm of G.permutation('abc')) {
+      answers.push(perm.slice());
+    }
+    expect(answers).to.have.length(members.length);
+    expect(answers).to.deep.have.members(members);
+  });
+
   it('yields the same array each time', () => {
     var arr = [...G.permutation([1, 2, 3], 2)];
     expect(arr).to.eql(Array(arr.length).fill(arr[0]));

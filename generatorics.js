@@ -83,7 +83,7 @@ var G = {
     yield* combinationUtil(0, 0);
     function* combinationUtil(start, index) {
       if (index === size) { // Current combination is ready to be processed, yield the combination
-        return yield that === clone ? data.slice() : data;
+        return yield that.clones ? data.slice() : data;
       }
       // replace index with all possible elements. The condition
       // "end - i + 1 >= size - index" makes sure that including one element
@@ -104,18 +104,19 @@ var G = {
    */
   permutation: function* permutation(arr, size) {
     var that = this;
-    size = typeof size === 'undefined' ? arr.length : size;
-    if (size === arr.length) {
-      return yield* heapsAlg(arr, that === clone);
+    var len = arr.length;
+    size = typeof size === 'undefined' ? len : size;
+    if (size === len) {
+      return yield* heapsAlg(arr, that.clones);
     }
     var data = [];
     var indecesUsed = [];
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       if (index === size) {
-        return yield that === clone ? data.slice() : data;
+        return yield that.clones ? data.slice() : data;
       }
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i < len; i++) {
         if (!indecesUsed[i]) {
           indecesUsed[i] = true;
           data[index] = arr[i];
@@ -133,15 +134,16 @@ var G = {
   */
   powerSet: function* powerSet(arr) {
     var that = this;
+    var len = arr.length;
     var data = [];
     yield* powerUtil(0, 0);
     function* powerUtil(start, index) {
       data.length = index;
-      yield that === clone ? data.slice() : data;
-      if (index === arr.length) {
+      yield that.clones ? data.slice() : data;
+      if (index === len) {
         return;
       }
-      for (var i = start; i < arr.length; i++) {
+      for (var i = start; i < len; i++) {
         data[index] = arr[i];
         yield* powerUtil(i + 1, index + 1);
       }
@@ -155,16 +157,17 @@ var G = {
    */
   permutationCombination: function* permutationCombination(arr) {
     var that = this;
+    var len = arr.length;
     var data = [];
     var indecesUsed = [];
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       data.length = index;
-      yield that === clone ? data.slice() : data;
-      if (index === arr.length) {
+      yield that.clones ? data.slice() : data;
+      if (index === len) {
         return;
       }
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i < len; i++) {
         if (!indecesUsed[i]) {
           indecesUsed[i] = true;
           data[index] = arr[i];
@@ -183,14 +186,15 @@ var G = {
    */
   baseN: function* baseN(arr, size) {
     var that = this;
-    size = typeof size === 'undefined' ? arr.length : size;
+    var len = arr.length;
+    size = typeof size === 'undefined' ? len : size;
     var data = [];
     yield* baseNUtil(0);
     function* baseNUtil(index) {
       if (index === size) {
-        return yield that === clone ? data.slice() : data;
+        return yield that.clones ? data.slice() : data;
       }
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i < len; i++) {
         data[index] = arr[i];
         yield* baseNUtil(index + 1);
       }
@@ -209,18 +213,20 @@ var G = {
     yield* cartesianUtil(0);
     function* cartesianUtil(index) {
       if (index === sets.length) {
-        return yield that === clone ? data.slice() : data;
+        return yield that.clones ? data.slice() : data;
       }
       for (var i = 0; i < sets[index].length; i++) {
         data[index] = sets[index][i];
         yield* cartesianUtil(index + 1);
       }
     }
-  }
+  },
+
+  clones: false,
 
 };
 
-var clone = {};
+var clone = { clones: true };
 clone.combination = G.combination;
 clone.permutation = G.permutation;
 clone.powerSet = G.powerSet;
@@ -237,6 +243,9 @@ G.clone = clone;
  */
 function* heapsAlg(arr, clone) {
   var size = arr.length;
+  if (typeof arr === 'string') {
+    arr = arr.split('');
+  }
   yield* heapsUtil(0);
   function* heapsUtil(index) {
     if (index === size) {
