@@ -27,6 +27,7 @@
     "combination",
     "permutation",
     "powerset",
-    "factoradic"
+    "factoradic",
+    "shuffle"
   ]
 }

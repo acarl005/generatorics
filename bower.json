@@ -10,7 +10,10 @@
   "keywords": [
     "combinatorics",
     "combination",
-    "permutation"
+    "permutation",
+    "powerset",
+    "factoradic",
+    "shuffle"
   ],
   "homepage": "https://github.com/acarl005/generatorics",
   "moduleType": [
