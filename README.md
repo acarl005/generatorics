@@ -18,6 +18,7 @@ bower install generatorics
 <script src="file/path/to/generatorics.js"></script>
 ```
 
+**Note:** This module is not transpiled for compatibility, as it degrades the performance. Check your browser/node version.
 
 ## Usage
 
@@ -172,6 +173,24 @@ new Set(combs);
 console.log(...combs);
 ```
 
+#### Card games anyone?
+```javascript
+var cards = [...G.clone.cartesian('♠♥♣♦', 'A23456789JQK')];
+console.log(G.shuffle(cards));
+// [ [ '♦', '6' ], [ '♠', '6' ], [ '♣', '7' ], [ '♥', 'K' ],
+//   [ '♣', 'J' ], [ '♥', '4' ], [ '♦', '2' ], [ '♥', '9' ],
+//   [ '♦', 'Q' ], [ '♠', 'Q' ], [ '♠', '4' ], [ '♠', 'K' ],
+//   [ '♥', '3' ], [ '♥', '7' ], [ '♠', '5' ], [ '♦', '7' ],
+//   [ '♥', '5' ], [ '♣', 'Q' ], [ '♣', '9' ], [ '♠', 'A' ],
+//   [ '♣', '4' ], [ '♣', '3' ], [ '♥', 'A' ], [ '♥', '8' ],
+//   [ '♣', '8' ], [ '♦', '8' ], [ '♠', '8' ], [ '♣', '5' ],
+//   [ '♥', '2' ], [ '♥', 'Q' ], [ '♦', 'A' ], [ '♥', '6' ],
+//   [ '♠', '2' ], [ '♣', '6' ], [ '♠', '3' ], [ '♦', 'K' ],
+//   [ '♦', 'J' ], [ '♠', '7' ], [ '♥', 'J' ], [ '♦', '5' ],
+//   [ '♦', '9' ], [ '♦', '3' ], [ '♠', '9' ], [ '♣', '2' ],
+//   [ '♣', 'A' ], [ '♣', 'K' ], [ '♦', '4' ], [ '♠', 'J' ] ]
+```
+
 ## Documentation
 
 <a name="module_G"></a>
@@ -188,6 +207,7 @@ console.log(...combs);
     * [.permutationCombination(arr)](#module_G.permutationCombination) ⇒ <code>Generator</code>
     * [.baseN(arr, [size])](#module_G.baseN) ⇒ <code>Generator</code>
     * [.cartesian(...sets)](#module_G.cartesian) ⇒ <code>Generator</code>
+    * [.shuffle(arr)](#module_G.shuffle) ⇒ <code>Array</code>
 
 <a name="module_G.factorial"></a>
 ### G.factorial(n) ⇒ <code>Number</code>
@@ -303,4 +323,15 @@ Generates the cartesian product of the sets.
 | Param | Type | Description |
 | --- | --- | --- |
 | ...sets | <code>Array</code> &#124; <code>String</code> | Variable number of sets of n elements. |
+
+<a name="module_G.shuffle"></a>
+### G.shuffle(arr) ⇒ <code>Array</code>
+Shuffles an array in place using the Fisher–Yates shuffle.
+
+**Kind**: static method of <code>[G](#module_G)</code>  
+**Returns**: <code>Array</code> - a random, unbiased perutation of arr  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | <code>Array</code> | A set of elements. |
 

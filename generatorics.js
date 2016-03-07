@@ -206,7 +206,7 @@ var G = {
    * @param {...(Array|String)} sets - Variable number of sets of n elements.
    * @returns {Generator} yields each product as an array
    */
-  cartesian: function* cartesian(sets) {
+  cartesian: function* cartesian(sets) { // TODO: use rest parameters here when supported
     var that = this;
     sets = arguments;
     var data = [];
@@ -222,9 +222,23 @@ var G = {
     }
   },
 
+  /**
+   * Shuffles an array in place using the Fisher–Yates shuffle.
+   * @param {Array} arr - A set of elements.
+   * @returns {Array} a random, unbiased perutation of arr
+   */
+  shuffle: function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      swap(arr, i, j);
+    }
+    return arr;
+  },
+
   clones: false,
 
 };
+
 
 var clone = { clones: true };
 clone.combination = G.combination;
@@ -235,6 +249,7 @@ clone.baseN = G.baseN;
 clone.cartesian = G.cartesian;
 
 G.clone = clone;
+
 
 
 /*
