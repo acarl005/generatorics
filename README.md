@@ -322,7 +322,7 @@ Generates the cartesian product of the sets.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| ...sets | <code>Array</code> &#124; <code>String</code> | Variable number of sets of n elements. |
+| ...sets | <code>Array</code> &#124; <code>String</code> | letiable number of sets of n elements. |
 
 <a name="module_G.shuffle"></a>
 ### G.shuffle(arr) ⇒ <code>Array</code>

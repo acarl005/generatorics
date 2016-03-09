@@ -20,7 +20,9 @@
 'use strict';
 
 /** @exports G */
-var G = {
+const G = {
+
+  clones: false,
 
   /**
    * Calculates a factorial
@@ -38,10 +40,10 @@ var G = {
    * @returns {Array} digits of n in factoradic in least significant order
    */
   factoradic: function factoradic(n) {
-    var radix = 1;
+    let radix = 1;
     for (var digit = 1; radix < n; radix *= ++digit);
     if (radix > n) radix /= digit--;
-    var result = [0];
+    let result = [0];
     for (; digit; radix /= digit--) {
       result[digit] = Math.floor(n / radix);
       n %= radix;
@@ -76,20 +78,20 @@ var G = {
    * @returns {Generator} yields each combination as an array
    */
   combination: function* combination(arr, size) {
-    var that = this;
-    size = typeof size === 'undefined' ? arr.length : size;
-    var end = arr.length - 1;
-    var data = [];
+    let that = this;
+    size = typeof size === 'undefined' ? arr.length : size; // default size to arr.length
+    let end = arr.length - 1;
+    let data = [];
     yield* combinationUtil(0, 0);
     function* combinationUtil(start, index) {
-      if (index === size) { // Current combination is ready to be processed, yield the combination
-        return yield that.clones ? data.slice() : data;
+      if (index === size) { // Current combination is ready to be processed, yield it
+        return yield that.clones ? data.slice() : data; // .slice() is a JS idiom for shallow cloning an array
       }
       // replace index with all possible elements. The condition
       // "end - i + 1 >= size - index" makes sure that including one element
       // at index will make a combination with remaining elements
       // at remaining positions
-      for (var i = start; i <= end && end - i + 1 >= size - index; i++) {
+      for (let i = start; i <= end && end - i + 1 >= size - index; i++) {
         data[index] = arr[i];
         yield* combinationUtil(i + 1, index + 1);
       }
@@ -103,20 +105,20 @@ var G = {
    * @returns {Generator} yields each permutation as an array
    */
   permutation: function* permutation(arr, size) {
-    var that = this;
-    var len = arr.length;
-    size = typeof size === 'undefined' ? len : size;
-    if (size === len) {
+    let that = this;
+    let len = arr.length;
+    size = typeof size === 'undefined' ? len : size; // default size to arr.length
+    if (size === len) { // switch to Heap's algorithm. it's more efficient
       return yield* heapsAlg(arr, that.clones);
     }
-    var data = [];
-    var indecesUsed = [];
+    let data = [];
+    let indecesUsed = []; // permutations do not repeat elements. keep track of the indeces of the elements already used
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       if (index === size) {
         return yield that.clones ? data.slice() : data;
       }
-      for (var i = 0; i < len; i++) {
+      for (let i = 0; i < len; i++) {
         if (!indecesUsed[i]) {
           indecesUsed[i] = true;
           data[index] = arr[i];
@@ -133,9 +135,9 @@ var G = {
   * @returns {Generator} yields each subset as an array
   */
   powerSet: function* powerSet(arr) {
-    var that = this;
-    var len = arr.length;
-    var data = [];
+    let that = this;
+    let len = arr.length;
+    let data = [];
     yield* powerUtil(0, 0);
     function* powerUtil(start, index) {
       data.length = index;
@@ -143,7 +145,7 @@ var G = {
       if (index === len) {
         return;
       }
-      for (var i = start; i < len; i++) {
+      for (let i = start; i < len; i++) {
         data[index] = arr[i];
         yield* powerUtil(i + 1, index + 1);
       }
@@ -156,10 +158,10 @@ var G = {
    * @returns {Generator} yields each permutation as an array
    */
   permutationCombination: function* permutationCombination(arr) {
-    var that = this;
-    var len = arr.length;
-    var data = [];
-    var indecesUsed = [];
+    let that = this;
+    let len = arr.length;
+    let data = [];
+    let indecesUsed = [];
     yield* permutationUtil(0);
     function* permutationUtil(index) {
       data.length = index;
@@ -167,7 +169,7 @@ var G = {
       if (index === len) {
         return;
       }
-      for (var i = 0; i < len; i++) {
+      for (let i = 0; i < len; i++) {
         if (!indecesUsed[i]) {
           indecesUsed[i] = true;
           data[index] = arr[i];
@@ -185,16 +187,16 @@ var G = {
    * @returns {Generator} yields all digits as an array
    */
   baseN: function* baseN(arr, size) {
-    var that = this;
-    var len = arr.length;
+    let that = this;
+    let len = arr.length;
     size = typeof size === 'undefined' ? len : size;
-    var data = [];
+    let data = [];
     yield* baseNUtil(0);
     function* baseNUtil(index) {
       if (index === size) {
         return yield that.clones ? data.slice() : data;
       }
-      for (var i = 0; i < len; i++) {
+      for (let i = 0; i < len; i++) {
         data[index] = arr[i];
         yield* baseNUtil(index + 1);
       }
@@ -203,19 +205,19 @@ var G = {
 
   /**
    * Generates the cartesian product of the sets.
-   * @param {...(Array|String)} sets - Variable number of sets of n elements.
+   * @param {...(Array|String)} sets - letiable number of sets of n elements.
    * @returns {Generator} yields each product as an array
    */
   cartesian: function* cartesian(sets) { // TODO: use rest parameters here when supported
-    var that = this;
+    let that = this;
     sets = arguments;
-    var data = [];
+    let data = [];
     yield* cartesianUtil(0);
     function* cartesianUtil(index) {
       if (index === sets.length) {
         return yield that.clones ? data.slice() : data;
       }
-      for (var i = 0; i < sets[index].length; i++) {
+      for (let i = 0; i < sets[index].length; i++) {
         data[index] = sets[index][i];
         yield* cartesianUtil(index + 1);
       }
@@ -228,19 +230,17 @@ var G = {
    * @returns {Array} a random, unbiased perutation of arr
    */
   shuffle: function shuffle(arr) {
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
+    for (let i = arr.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
       swap(arr, i, j);
     }
     return arr;
-  },
-
-  clones: false,
+  }
 
 };
 
 
-var clone = { clones: true };
+let clone = { clones: true };
 clone.combination = G.combination;
 clone.permutation = G.permutation;
 clone.powerSet = G.powerSet;
@@ -257,7 +257,7 @@ G.clone = clone;
  * work for "sub-permutations", e.g. permutations of 3 elements from [1, 2, 3, 4, 5]
  */
 function* heapsAlg(arr, clone) {
-  var size = arr.length;
+  let size = arr.length;
   if (typeof arr === 'string') {
     arr = arr.split('');
   }
@@ -267,7 +267,7 @@ function* heapsAlg(arr, clone) {
       return yield clone ? arr.slice() : arr;
     }
 
-    for (var j = index; j < size; j++) {
+    for (let j = index; j < size; j++) {
       swap(arr, index, j);
       yield* heapsUtil(index + 1);
       swap(arr, index, j);
@@ -279,11 +279,11 @@ function* heapsAlg(arr, clone) {
  * Swaps two array elements.
  */
 function swap(arr, i, j) {
-  var len = arr.length;
+  let len = arr.length;
   if (i >= len || j >= len) {
     console.warn('Swapping an array\'s elements past its length.');
   }
-  var temp = arr[j];
+  let temp = arr[j];
   arr[j] = arr[i];
   arr[i] = temp;
   return arr;
