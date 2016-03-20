@@ -1,6 +1,6 @@
 # Generatorics
 
-### A combinatorics library for JavaScript utilizing ES2015 generators. Generate combinations, permutations, and power sets of arrays or strings.
+### An efficient combinatorics library for JavaScript utilizing ES2015 generators. Generate combinations, permutations, and power sets of arrays or strings.
 
 - Node
 ```
