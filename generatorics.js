@@ -205,7 +205,7 @@ const G = {
 
   /**
    * Generates the cartesian product of the sets.
-   * @param {...(Array|String)} sets - letiable number of sets of n elements.
+   * @param {...(Array|String)} sets - variable number of sets of n elements.
    * @returns {Generator} yields each product as an array
    */
   cartesian: function* cartesian(sets) { // TODO: use rest parameters here when supported
