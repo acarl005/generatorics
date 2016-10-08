@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "docs": "jsdoc2md generatorics.js"
+    "docs": "sed -n '/Documentation/q;p' README.md > README.bak.md; echo '## Documentation' >> README.bak.md; jsdoc2md generatorics.js >> README.bak.md && mv -f README.bak.md README.md"
   },
   "author": "Andrew Carlson <acarl005@g.ucla.edu>",
   "repository": {

@@ -202,8 +202,8 @@ console.log(G.shuffle(cards));
 ```
 
 ## Documentation
-
 <a name="module_G"></a>
+
 ## G
 
 * [G](#module_G)
@@ -217,9 +217,11 @@ console.log(G.shuffle(cards));
     * [.permutationCombination(arr)](#module_G.permutationCombination) ⇒ <code>Generator</code>
     * [.baseN(arr, [size])](#module_G.baseN) ⇒ <code>Generator</code>
     * [.cartesian(...sets)](#module_G.cartesian) ⇒ <code>Generator</code>
+    * [.baseNAll(arr)](#module_G.baseNAll) ⇒ <code>Generator</code>
     * [.shuffle(arr)](#module_G.shuffle) ⇒ <code>Array</code>
 
 <a name="module_G.factorial"></a>
+
 ### G.factorial(n) ⇒ <code>Number</code>
 Calculates a factorial
 
@@ -231,6 +233,7 @@ Calculates a factorial
 | n | <code>Number</code> | The number to operate the factorial on. |
 
 <a name="module_G.factoradic"></a>
+
 ### G.factoradic(n) ⇒ <code>Array</code>
 Converts a number to the factorial number system. Digits are in least significant order.
 
@@ -242,6 +245,7 @@ Converts a number to the factorial number system. Digits are in least significan
 | n | <code>Number</code> | Integer in base 10 |
 
 <a name="module_G.P"></a>
+
 ### G.P(n, r) ⇒ <code>Number</code>
 Calculates the number of possible permutations of "r" elements in a set of size "n".
 
@@ -254,6 +258,7 @@ Calculates the number of possible permutations of "r" elements in a set of size 
 | r | <code>Number</code> | Number of elements to choose from the set. |
 
 <a name="module_G.C"></a>
+
 ### G.C(n, r) ⇒ <code>Number</code>
 Calculates the number of possible combinations of "r" elements in a set of size "n".
 
@@ -266,6 +271,7 @@ Calculates the number of possible combinations of "r" elements in a set of size 
 | r | <code>Number</code> | Number of elements to choose from the set. |
 
 <a name="module_G.combination"></a>
+
 ### G.combination(arr, [size]) ⇒ <code>Generator</code>
 Generates all combinations of a set.
 
@@ -278,6 +284,7 @@ Generates all combinations of a set.
 | [size] | <code>Number</code> | <code>arr.length</code> | Number of elements to choose from the set. |
 
 <a name="module_G.permutation"></a>
+
 ### G.permutation(arr, [size]) ⇒ <code>Generator</code>
 Generates all permutations of a set.
 
@@ -290,6 +297,7 @@ Generates all permutations of a set.
 | [size] | <code>Number</code> | <code>arr.length</code> | Number of elements to choose from the set. |
 
 <a name="module_G.powerSet"></a>
+
 ### G.powerSet(arr) ⇒ <code>Generator</code>
 Generates all possible subsets of a set (a.k.a. power set).
 
@@ -301,6 +309,7 @@ Generates all possible subsets of a set (a.k.a. power set).
 | arr | <code>Array</code> &#124; <code>String</code> | The set of elements. |
 
 <a name="module_G.permutationCombination"></a>
+
 ### G.permutationCombination(arr) ⇒ <code>Generator</code>
 Generates the permutation of the combinations of a set.
 
@@ -312,6 +321,7 @@ Generates the permutation of the combinations of a set.
 | arr | <code>Array</code> &#124; <code>String</code> | The set of elements. |
 
 <a name="module_G.baseN"></a>
+
 ### G.baseN(arr, [size]) ⇒ <code>Generator</code>
 Generates all possible "numbers" from the digits of a set.
 
@@ -324,6 +334,7 @@ Generates all possible "numbers" from the digits of a set.
 | [size] | <code>Number</code> | <code>arr.length</code> | How many digits will be in the numbers. |
 
 <a name="module_G.cartesian"></a>
+
 ### G.cartesian(...sets) ⇒ <code>Generator</code>
 Generates the cartesian product of the sets.
 
@@ -334,7 +345,20 @@ Generates the cartesian product of the sets.
 | --- | --- | --- |
 | ...sets | <code>Array</code> &#124; <code>String</code> | variable number of sets of n elements. |
 
+<a name="module_G.baseNAll"></a>
+
+### G.baseNAll(arr) ⇒ <code>Generator</code>
+Infinite generator for all possible "numbers" from a set of digits.
+
+**Kind**: static method of <code>[G](#module_G)</code>  
+**Returns**: <code>Generator</code> - yields all digits as an array  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | <code>Array</code> &#124; <code>String</code> | The set of digits |
+
 <a name="module_G.shuffle"></a>
+
 ### G.shuffle(arr) ⇒ <code>Array</code>
 Shuffles an array in place using the Fisher–Yates shuffle.
 
