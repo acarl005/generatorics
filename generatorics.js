@@ -208,9 +208,8 @@ const G = {
    * @param {...(Array|String)} sets - variable number of sets of n elements.
    * @returns {Generator} yields each product as an array
    */
-  cartesian: function* cartesian(sets) { // TODO: use rest parameters here when supported
+  cartesian: function* cartesian(...sets) {
     let that = this;
-    sets = arguments;
     let data = [];
     yield* cartesianUtil(0);
     function* cartesianUtil(index) {
@@ -221,6 +220,17 @@ const G = {
         data[index] = sets[index][i];
         yield* cartesianUtil(index + 1);
       }
+    }
+  },
+
+  /**
+   * Infinite generator for all possible "numbers" from a set of digits.
+   * @param {Array|String} arr - The set of digits
+   * @returns {Generator} yields all digits as an array
+   */
+  baseNAll: function* permutationAll(arr) {
+    for (let len = 1; true; len++) {
+      yield* this.baseN(arr, len)
     }
   },
 
@@ -246,6 +256,7 @@ clone.permutation = G.permutation;
 clone.powerSet = G.powerSet;
 clone.permutationCombination = G.permutationCombination;
 clone.baseN = G.baseN;
+clone.baseNAll = G.baseNAll;
 clone.cartesian = G.cartesian;
 
 G.clone = clone;

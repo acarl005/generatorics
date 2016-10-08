@@ -438,6 +438,31 @@ describe('Cartesian Product', () => {
 });
 
 
+describe('Infinite Base N', () => {
+
+  it('generates all permutations of an array', () => {
+    var members = [
+      [ 'a' ], [ 'b' ], [ 'c' ], [ 'a', 'a' ], [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'a' ], [ 'b', 'b' ], [ 'b', 'c' ], [ 'c', 'a' ], [ 'c', 'b' ], [ 'c', 'c' ],
+      [ 'a', 'a', 'a' ], [ 'a', 'a', 'b' ], [ 'a', 'a', 'c' ], [ 'a', 'b', 'a' ], [ 'a', 'b', 'b' ], [ 'a', 'b', 'c' ], [ 'a', 'c', 'a' ], [ 'a', 'c', 'b' ],
+      [ 'a', 'c', 'c' ], [ 'b', 'a', 'a' ], [ 'b', 'a', 'b' ], [ 'b', 'a', 'c' ], [ 'b', 'b', 'a' ], [ 'b', 'b', 'b' ], [ 'b', 'b', 'c' ], [ 'b', 'c', 'a' ],
+      [ 'b', 'c', 'b' ], [ 'b', 'c', 'c' ], [ 'c', 'a', 'a' ], [ 'c', 'a', 'b' ], [ 'c', 'a', 'c' ], [ 'c', 'b', 'a' ], [ 'c', 'b', 'b' ], [ 'c', 'b', 'c' ],
+      [ 'c', 'c', 'a' ], [ 'c', 'c', 'b' ], [ 'c', 'c', 'c' ], [ 'a', 'a', 'a', 'a' ], [ 'a', 'a', 'a', 'b' ], [ 'a', 'a', 'a', 'c' ], [ 'a', 'a', 'b', 'a' ],
+      [ 'a', 'a', 'b', 'b' ], [ 'a', 'a', 'b', 'c' ], [ 'a', 'a', 'c', 'a' ], [ 'a', 'a', 'c', 'b' ], [ 'a', 'a', 'c', 'c' ], [ 'a', 'b', 'a', 'a' ], [ 'a', 'b', 'a', 'b' ],
+      [ 'a', 'b', 'a', 'c' ], [ 'a', 'b', 'b', 'a' ], [ 'a', 'b', 'b', 'b' ], [ 'a', 'b', 'b', 'c' ], [ 'a', 'b', 'c', 'a' ], [ 'a', 'b', 'c', 'b' ], [ 'a', 'b', 'c', 'c' ],
+      [ 'a', 'c', 'a', 'a' ], [ 'a', 'c', 'a', 'b' ], [ 'a', 'c', 'a', 'c' ], [ 'a', 'c', 'b', 'a' ], [ 'a', 'c', 'b', 'b' ], [ 'a', 'c', 'b', 'c' ], [ 'a', 'c', 'c', 'a' ],
+    ]
+    var nums = [ 'a', 'b', 'c' ]
+    var perms = []
+    var gen = G.baseNAll(nums)
+    for (var i = 0; i < 64; i++) {
+      perms.push(gen.next().value.slice())
+    }
+    expect(perms).to.eql(members)
+  })
+
+})
+
+
 describe('Clone submodule', () => {
 
   it('clones combinations', () => {

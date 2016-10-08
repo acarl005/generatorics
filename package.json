@@ -3,6 +3,9 @@
   "version": "1.0.7",
   "description": "Efficient Combinatorics library for JavaScript using ES2015 generator functions. Generate power set, combination, and permutation.",
   "main": "generatorics.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "directories": {
     "test": "test"
   },
@@ -13,7 +16,8 @@
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "jsdoc2md generatorics.js"
   },
   "author": "Andrew Carlson <acarl005@g.ucla.edu>",
   "repository": {

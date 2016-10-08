@@ -173,6 +173,16 @@ new Set(combs);
 console.log(...combs);
 ```
 
+#### Writing a code generator? Need to produce an infinite stream of minified variable names?
+
+No problem! Just pass in a collection of all your valid characters and start generating.
+
+```javascript
+var mininym = G.baseNAll('abcdefghijklmnopqrstuvwxyz$#')
+var name = mininym.next().value
+global[name] = 'some value'
+```
+
 #### Card games anyone?
 ```javascript
 var cards = [...G.clone.cartesian('♠♥♣♦', 'A23456789JQK')];
