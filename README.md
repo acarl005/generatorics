@@ -70,7 +70,7 @@ for (var comb of G.combination(['a', 'b', 'c'], 2)) {
 // [ 'b', 'c' ]
 ```
 
-For efficiency, each array being yielded is the same one being mutated on each iteration.
+For efficiency, each array being yielded is the same one being mutated on each iteration. **DO NOT** mutate the array.
 ```javascript
 var combs = [];
 for (var comb of G.combination(['a', 'b', 'c'], 2)) {
@@ -151,7 +151,7 @@ console.log([...combs]);
 ```
 
 ### G.clone
-This submodule provides the [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), [baseNAll](#module_G.baseNAll), and [cartesian](#module_G.cartesian) methods as well.
+This submodule produces generators that yield a different array on each iteration in case you need to mutate it. The [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), [baseNAll](#module_G.baseNAll), and [cartesian](#module_G.cartesian) methods are provided on this submodule.
 
 ## Cool things to do with ES2015 generators
 ```javascript
@@ -169,7 +169,7 @@ Array.from(combs);
 // generate sets
 new Set(combs);
 
-// function calls
+// spreading in function calls
 console.log(...combs);
 ```
 
