@@ -151,7 +151,7 @@ console.log([...combs]);
 ```
 
 ### G.clone
-This submodule provides the [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), and [cartesian](#module_G.cartesian) methods as well.
+This submodule provides the [combination](#module_G.combination), [permutation](#module_G.permutation), [powerSet](#module_G.powerSet), [permutationCombination](#module_G.permutationCombination), [baseN](#module_G.baseN), [baseNAll](#module_G.baseNAll), and [cartesian](#module_G.cartesian) methods as well.
 
 ## Cool things to do with ES2015 generators
 ```javascript
@@ -179,7 +179,7 @@ No problem! Just pass in a collection of all your valid characters and start gen
 
 ```javascript
 var mininym = G.baseNAll('abcdefghijklmnopqrstuvwxyz$#')
-var name = mininym.next().value
+var name = mininym.next().value.join('')
 global[name] = 'some value'
 ```
 
@@ -216,8 +216,8 @@ console.log(G.shuffle(cards));
     * [.powerSet(arr)](#module_G.powerSet) ⇒ <code>Generator</code>
     * [.permutationCombination(arr)](#module_G.permutationCombination) ⇒ <code>Generator</code>
     * [.baseN(arr, [size])](#module_G.baseN) ⇒ <code>Generator</code>
-    * [.cartesian(...sets)](#module_G.cartesian) ⇒ <code>Generator</code>
     * [.baseNAll(arr)](#module_G.baseNAll) ⇒ <code>Generator</code>
+    * [.cartesian(...sets)](#module_G.cartesian) ⇒ <code>Generator</code>
     * [.shuffle(arr)](#module_G.shuffle) ⇒ <code>Array</code>
 
 <a name="module_G.factorial"></a>
@@ -333,18 +333,6 @@ Generates all possible "numbers" from the digits of a set.
 | arr | <code>Array</code> &#124; <code>String</code> |  | The set of digits. |
 | [size] | <code>Number</code> | <code>arr.length</code> | How many digits will be in the numbers. |
 
-<a name="module_G.cartesian"></a>
-
-### G.cartesian(...sets) ⇒ <code>Generator</code>
-Generates the cartesian product of the sets.
-
-**Kind**: static method of <code>[G](#module_G)</code>  
-**Returns**: <code>Generator</code> - yields each product as an array  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...sets | <code>Array</code> &#124; <code>String</code> | variable number of sets of n elements. |
-
 <a name="module_G.baseNAll"></a>
 
 ### G.baseNAll(arr) ⇒ <code>Generator</code>
@@ -356,6 +344,18 @@ Infinite generator for all possible "numbers" from a set of digits.
 | Param | Type | Description |
 | --- | --- | --- |
 | arr | <code>Array</code> &#124; <code>String</code> | The set of digits |
+
+<a name="module_G.cartesian"></a>
+
+### G.cartesian(...sets) ⇒ <code>Generator</code>
+Generates the cartesian product of the sets.
+
+**Kind**: static method of <code>[G](#module_G)</code>  
+**Returns**: <code>Generator</code> - yields each product as an array  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...sets | <code>Array</code> &#124; <code>String</code> | variable number of sets of n elements. |
 
 <a name="module_G.shuffle"></a>
 

@@ -204,6 +204,17 @@ const G = {
   },
 
   /**
+   * Infinite generator for all possible "numbers" from a set of digits.
+   * @param {Array|String} arr - The set of digits
+   * @returns {Generator} yields all digits as an array
+   */
+  baseNAll: function* permutationAll(arr) {
+    for (let len = 1; true; len++) {
+      yield* this.baseN(arr, len)
+    }
+  },
+
+  /**
    * Generates the cartesian product of the sets.
    * @param {...(Array|String)} sets - variable number of sets of n elements.
    * @returns {Generator} yields each product as an array
@@ -220,17 +231,6 @@ const G = {
         data[index] = sets[index][i];
         yield* cartesianUtil(index + 1);
       }
-    }
-  },
-
-  /**
-   * Infinite generator for all possible "numbers" from a set of digits.
-   * @param {Array|String} arr - The set of digits
-   * @returns {Generator} yields all digits as an array
-   */
-  baseNAll: function* permutationAll(arr) {
-    for (let len = 1; true; len++) {
-      yield* this.baseN(arr, len)
     }
   },
 
