@@ -209,8 +209,9 @@ console.log(G.shuffle(cards));
 * [G](#module_G)
     * [.factorial(n)](#module_G.factorial) ⇒ <code>Number</code>
     * [.factoradic(n)](#module_G.factoradic) ⇒ <code>Array</code>
-    * [.P(n, r)](#module_G.P) ⇒ <code>Number</code>
-    * [.C(n, r)](#module_G.C) ⇒ <code>Number</code>
+    * [.P(n, k)](#module_G.P) ⇒ <code>Number</code>
+    * [.C(n, k)](#module_G.C) ⇒ <code>Number</code>
+    * [.choices(n, k, [options])](#module_G.choices) ⇒ <code>Number</code>
     * [.combination(arr, [size])](#module_G.combination) ⇒ <code>Generator</code>
     * [.permutation(arr, [size])](#module_G.permutation) ⇒ <code>Generator</code>
     * [.powerSet(arr)](#module_G.powerSet) ⇒ <code>Generator</code>
@@ -246,29 +247,45 @@ Converts a number to the factorial number system. Digits are in least significan
 
 <a name="module_G.P"></a>
 
-### G.P(n, r) ⇒ <code>Number</code>
-Calculates the number of possible permutations of "r" elements in a set of size "n".
+### G.P(n, k) ⇒ <code>Number</code>
+Calculates the number of possible permutations of "k" elements in a set of size "n".
 
 **Kind**: static method of <code>[G](#module_G)</code>  
-**Returns**: <code>Number</code> - n P r  
+**Returns**: <code>Number</code> - n P k  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | n | <code>Number</code> | Number of elements in the set. |
-| r | <code>Number</code> | Number of elements to choose from the set. |
+| k | <code>Number</code> | Number of elements to choose from the set. |
 
 <a name="module_G.C"></a>
 
-### G.C(n, r) ⇒ <code>Number</code>
-Calculates the number of possible combinations of "r" elements in a set of size "n".
+### G.C(n, k) ⇒ <code>Number</code>
+Calculates the number of possible combinations of "k" elements in a set of size "n".
 
 **Kind**: static method of <code>[G](#module_G)</code>  
-**Returns**: <code>Number</code> - n C r  
+**Returns**: <code>Number</code> - n C k  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | n | <code>Number</code> | Number of elements in the set. |
-| r | <code>Number</code> | Number of elements to choose from the set. |
+| k | <code>Number</code> | Number of elements to choose from the set. |
+
+<a name="module_G.choices"></a>
+
+### G.choices(n, k, [options]) ⇒ <code>Number</code>
+Higher level method for counting number of possible combinations of "k" elements from a set of size "n".
+
+**Kind**: static method of <code>[G](#module_G)</code>  
+**Returns**: <code>Number</code> - Number of possible combinations.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| n | <code>Number</code> | Number of elements in the set. |
+| k | <code>Number</code> | Number of elements to choose from the set. |
+| [options] | <code>Object</code> |  |
+| options.replace | <code>Boolean</code> | Is replacement allowed after each choice? |
+| options.ordered | <code>Boolean</code> | Does the order of the choices matter? |
 
 <a name="module_G.combination"></a>
 
